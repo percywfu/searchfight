@@ -1,7 +1,7 @@
 # searchAPI
 
-requisito para c#
+requirement for c#
 dotnet add package Newtonsoft.Json --version 12.0.3
 
-requisito para python
+requirement for python
 pip install requests
