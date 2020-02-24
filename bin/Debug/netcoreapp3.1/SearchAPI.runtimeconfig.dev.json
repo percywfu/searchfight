@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Manpower\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Manpower\\.nuget\\packages"
+    ]
+  }
+}

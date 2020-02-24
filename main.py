@@ -1,38 +1,41 @@
 import sys
 import requests
-def search(busqueda, KEY, EngineID):
-    url = "https://www.googleapis.com/customsearch/v1?key="+KEY+"&cx="+EngineID+"&q="+busqueda
+
+def search(keyWords, KEY, EngineID):
+    url = "https://www.googleapis.com/customsearch/v1?key="+KEY+"&cx="+EngineID+"&q="+keyWords
     response = requests.get(url)
     resJson = response.json()
     return (resJson['queries']['request'][0]['totalResults'])
 
-def getResults(busqueda):
-    EngineIdG = "010556043604774410724:xvljiggke1i"
-    EngineIdB = "010556043604774410724:fzoekgp3pmq"
-    KEY = "AIzaSyAJuxgY1dQGQV45L1nIOoxLjJd7Cy-xA1M"
-    resBing = search(busqueda, KEY, EngineIdB)
-    resGoogle = search(busqueda, KEY, EngineIdG)
+def getResults(keyWords):
+    EngineIdGoogle = "004432549449583349288:nalrskjiw5l"
+    EngineIdBing = "004432549449583349288:dzujar3pgzy"
+    KEY = "AIzaSyDZ9Xp_pjTaqR7-9KwUaRrZtPJPloRXZ6E"
+
+    resGoogle = search(keyWords, KEY, EngineIdGoogle)
+    resBing = search(keyWords, KEY, EngineIdBing)
+
     return [resBing, resGoogle]
    
 if __name__ == "__main__":
-    # obteniendo todos los parametros por consola
-    busquedas = sys.argv[1:]
-    if len(busquedas) == 0:
-        print('nada que buscar')
+    # getting parameters from console
+    keyWordss = sys.argv[1:]
+    if len(keyWordss) == 0:
+        print('nothing to search')
     else:
         contGoogle = 0
         contBing = 0
-        for busqueda in busquedas:
-            result = getResults(busqueda)
+        for keyWords in keyWordss:
+            result = getResults(keyWords)
             print("______________________________________________")
-            print('{}: Bing   => {}'.format(busqueda,result[0]))
-            print('{}: Google => {}'.format(busqueda,result[1]))
+            print('{}: Bing   => {}'.format(keyWords,result[0]))
+            print('{}: Google => {}'.format(keyWords,result[1]))
             if result[0]>result[1]:
                 contBing += 1
-                print('{} Bing Winner'.format(busqueda))
+                print('{} Bing Winner'.format(keyWords))
             elif result[0]<result[1]:
                 contGoogle += 1
-                print('{} Google Winner'.format(busqueda))
+                print('{} Google Winner'.format(keyWords))
         print("______________________________________________")
         print('Total results: Google {} vs Bing {}'.format(contGoogle,contBing))
         if contGoogle>contBing:
